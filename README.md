@@ -1,5 +1,7 @@
 # aws-glue-kafka-consumer
-glue aware kafka consumer
+Simple glue aware kafka consumer
+
+** Make sure you have you AWS credentials set beforehand
 
 ```
 $ sbt
