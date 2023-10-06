@@ -5,7 +5,7 @@ glue aware kafka consumer
 ```
 $ sbt
 
-sbt> run
+sbt:aws-glue-consumer> run
 
 Usage: aws-glue-consumer [options]
 
@@ -19,7 +19,7 @@ Usage: aws-glue-consumer [options]
   -t, --topic <topic>      topic is a required field
 
 
-sbt> run -k my-glue-key-registry -v ,my-glue-value-registry -b "kafka-broker:9092" -t my-topic
+sbt:aws-glue-consumer> run -k my-glue-key-registry -v ,my-glue-value-registry -b "kafka-broker:9092" -t my-topic
 
 ```
 
@@ -27,7 +27,7 @@ alternatively, usign cousier:
 
 ````
 
-sbt> publishLocal
+sbt:aws-glue-consumer> publishLocal
 ...
 [info] 	delivering ivy file to /Users/andrewslack/workspace/aws-glue-kafka-consumer/target/scala-2.12/ivy-0.1.0-SNAPSHOT.xml
 ...
