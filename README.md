@@ -1,7 +1,6 @@
 # aws-glue-kafka-consumer
 glue aware kafka consumer
 
-
 ```
 $ sbt
 
@@ -23,19 +22,23 @@ sbt:aws-glue-consumer> run -k my-glue-key-registry -v ,my-glue-value-registry -b
 
 ```
 
-alternatively, usign cousier:
+alternatively, using coursier run local artifact:
 
 ````
 
 sbt:aws-glue-consumer> publishLocal
 ...
-[info] 	delivering ivy file to /Users/andrewslack/workspace/aws-glue-kafka-consumer/target/scala-2.12/ivy-0.1.0-SNAPSHOT.xml
+[info] 	delivering ivy file to .../target/scala-2.12/ivy-0.1.0-SNAPSHOT.xml
 ...
 [success] Total time: 3 s, completed Oct 6, 2023, 11:51:40 AM
 
 sbt:aws-glue-consumer> exit
 
-$> cs launch com.evenfinancial::aws-glue-consumer:0.1.0-SNAPSHOT -- -k my-glue-key-registry -v ,my-glue-value-registry -b "kafka-broker:9092" -t my-topic -n 1 &2/dev/null | jq .
+$> cs launch com.evenfinancial::aws-glue-consumer:0.1.0-SNAPSHOT -- \
+            -k my-glue-key-registry \
+            -v my-glue-value-registry \
+            -b "kafka-broker:9092" \
+            -t my-topic -n 1 
 
 ...
 ```
