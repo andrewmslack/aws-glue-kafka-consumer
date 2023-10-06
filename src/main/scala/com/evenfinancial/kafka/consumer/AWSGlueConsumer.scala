@@ -32,7 +32,8 @@ object AWSGlueConsumer extends IOApp {
       valueRegistry: String = "undefined",
       bootstrapServers: String = "undefined",
       groupId: Option[String] = None,
-      topic: String = "undefined"
+      topic: String = "undefined",
+      numberOfMessages: Option[Long] = None
   )
 
   def run(args: List[String]): IO[ExitCode] = {
@@ -67,7 +68,10 @@ object AWSGlueConsumer extends IOApp {
           .required()
           .valueName("<topic>")
           .action((v, c) => c.copy(topic = v))
-          .text("topic is a required field")
+          .text("topic is a required field"),
+        opt[Long]('n', "number-of-messages")
+          .valueName("<number>")
+          .action((v, c) => c.copy(numberOfMessages = Some(v)))
       )
     }
 
@@ -101,18 +105,20 @@ object AWSGlueConsumer extends IOApp {
             .flatMap { consumer =>
               consumer.stream
                 .evalMap { committable =>
-
                   // Process the record
-                  IO.blocking(
+                  IO(
                     println(
-                      s"Consumed: ${committable.record.key} -> ${committable.record.value}"
+                      s"${committable.record.value}"
                     )
                   )
                 }
             }
 
-        // Run the stream
-        stream.compile.drain.as(ExitCode.Success)
+        config.numberOfMessages.map(n => stream.take(n))
+          .getOrElse(stream)
+          .compile
+          .drain.as(ExitCode.Success)
+
       case _ =>
         IO(ExitCode.Error)
     }

@@ -17,7 +17,7 @@ Usage: aws-glue-consumer [options]
                            bootstrap-servers is a required field
   -g, --consumer-group-id <consumer-group-id>
   -t, --topic <topic>      topic is a required field
-
+  -n, --number-of-messages <number>
 
 sbt:aws-glue-consumer> run -k my-glue-key-registry -v ,my-glue-value-registry -b "kafka-broker:9092" -t my-topic
 
@@ -35,4 +35,8 @@ sbt:aws-glue-consumer> publishLocal
 
 sbt:aws-glue-consumer> exit
 
-$> cs launch com.evenfinancial::aws-glue-consumer:0.1.0-SNAPSHOT -- -k my-glue-key-registry -v ,my-glue-value-registry -b "kafka-broker:9092" -t my-topic
+$> cs launch com.evenfinancial::aws-glue-consumer:0.1.0-SNAPSHOT -- -k my-glue-key-registry -v ,my-glue-value-registry -b "kafka-broker:9092" -t my-topic -n 1 &2/dev/null | jq .
+
+...
+```
+
